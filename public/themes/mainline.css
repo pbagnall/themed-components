@@ -1,0 +1,74 @@
+ul-label {
+   --background-color: #ebebeb;
+   --color: #000000;
+   --border-color: transparent;
+   --font-size: 1rem;
+   --font-family: 'Open Sans';
+   --padding: 1px 7px 1px 0;
+   --border-radius: 3px;
+
+   &.warning {
+      --background-color: #ffa700;
+      --color: #000000;
+      --border-color: transparent;
+
+      &.light {
+         --background-color: #FFF4D6;
+         --color: #000000;
+         --border-color: transparent;
+      }
+   }
+
+   &.danger {
+      --background-color: #e12d33;
+      --color: #ffffff;
+      --border-color: transparent;
+
+      &.light {
+         --background-color: #FDF0F2;
+         --color: #931519;
+         --border-color: transparent;
+      }
+   }
+
+   &.success {
+      --background-color: #146615;
+      --color: #ffffff;
+      --border-color: transparent;
+
+      &.light {
+         --background-color: #EAF0E9;
+         --color: #093308;
+         --border-color: transparent;
+      }
+   }
+
+   &.info {
+      --background-color: #096072;
+      --color: #ffffff;
+      --border-color: transparent;
+
+      &.light {
+         --background-color: #E7F4F7;
+         --color: #033D48;
+         --border-color: transparent;
+      }
+   }
+
+   &.black {
+      --background-color: #000000;
+      --color: #ffffff;
+      --border-color: transparent;
+   }
+
+   &.white {
+      --background-color: #ffffff;
+      --color: #000000;
+      --border-color: #595959;
+   }
+
+   &.small {
+      --font-size: 0.875rem;
+      --padding: 1px 7px 1px 0;
+   }
+}

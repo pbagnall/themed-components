@@ -1,0 +1,29 @@
+body {
+   margin: 0;
+}
+
+header {
+   padding: 1em;
+   margin: 0;   
+}
+
+main {
+   margin: 1em;
+ 
+   & div {
+      margin: 0 0 6rem 0;
+   }
+
+   & div div {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      font-family: "Open Sans";
+      margin: 0 0 1rem 0;
+   }
+}
+
+h1, h2 {
+   font-family: "Poppins";
+   margin: 0;
+}

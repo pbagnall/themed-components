@@ -1,0 +1,25 @@
+{
+  "name": "themed-components",
+  "version": "0.0.1",
+  "description": "experiment theming web components",
+  "main": "index.js",
+  "repository": "git@github.com:pbagnall/themed-components.git",
+  "author": "Peter Bagnall <peter.bagnall@ul.com>",
+  "license": "none",
+  "private": true,
+  "scripts": {
+    "server": "http-server",
+    "demo": "npm run buildsite; http-server -o",
+    "buildsite": "node_modules/.bin/rollup -c",
+    "build": "npm run buildsite",
+    "dev": "rollup -c -w"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.9.1",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^1.1.1"
+  }
+}
