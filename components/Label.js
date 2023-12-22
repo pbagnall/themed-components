@@ -17,13 +17,12 @@ import { createElement as ce } from '../src/utils.js';
 let labelStyleTemplate = document.createElement('template');
 labelStyleTemplate.innerHTML = `
    <style>
-      div {
-         display: inline-flex;
-         align-items: flex-start;
+      div.label {
+         display: flex;
+         align-items: center;
          box-sizing: border-box;
          -moz-box-sizing: border-box;
          -webkit-box-sizing: border-box;
-         overflow: hidden;
 
          background-color: var(--label--background-color);
          color: var(--label--color);
@@ -33,29 +32,43 @@ labelStyleTemplate.innerHTML = `
          font-weight: 400;
          border-radius: var(--label--border-radius);
 
+         margin: 0;
+
          padding: var(--label--padding);
+         padding-top: 0;
+         padding-bottom: 0;
          font-size: var(--label--font-size);
-         gap: var(--label--gap);
-         height: var(--label--height);
-         align-items: center;
+         
+         gap: 0;
 
          cursor: pointer;
       }
 
-      .icon {
-         margin-left: calc(var(--label--gap) * -1);
+      div.text {
+         overflow: hidden;
+         line-height: var(--label--height);
       }
 
       .icon, .close {
+         display: flex;
+         align-items: center;
+         align-self: flex-start;
+         flex-shrink: 0;
+         padding: 0;
+         margin: 0;
+         height: var(--label--height);
+
          font-family: "Material Symbols Outlined";
          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
          font-size: var(--label--icon-size);
-         width: var(--label--icon-size);
-         align-self: center;
+      }
+
+      .icon {
+         margin-right: var(--label--gap);
       }
 
       .close {
-         position: relative;
+         margin-left: var(--label--gap);
       }
 
       .close:hover {
@@ -75,16 +88,16 @@ class Label extends HTMLElement {
       let iconName = this.getAttribute('icon');
       let size = this.getAttribute('size');
 
-      let label = ce('div');
+      let label = ce('div','label');
 
-      if (iconName) {
-         label.appendChild(ce('span','foo','\u200b'));
-         label.appendChild(ce('span','icon', iconName));
-      }
-      for (let node of this.childNodes) {
-         label.appendChild(node);
-      }
-      this.closeButton = ce('span','close', 'close');
+      // icon
+      if (iconName) label.appendChild(ce('div','icon', iconName));
+
+      // text
+      label.appendChild(ce('div','text',this.textContent));
+
+      // close button
+      this.closeButton = ce('div','close', 'close');
       this.closeButton.addEventListener('click', (event) => this.click(event));
       if (dismissable) label.appendChild(this.closeButton);
 

@@ -4,18 +4,31 @@ body {
 }
 
 header {
+   box-sizing: border-box;
+   position: fixed;
+   top: 0;
    padding: 1em;
    margin: 0;
    display: flex;
    align-items: baseline;
    gap: 2rem;
+   background: #eeeeee;
+   width: 100%;
+}
+
+header h1 {
+   flex-shrink: 1;
+}
+
+header label {
+   flex-shrink: 0;
 }
 
 section {
-   margin: 1em;
+   margin: 6em 1rem 1rem 1rem;
    border: 1px solid black;
    padding: 1rem;
-   width: 30rem;
+   width: 31rem;
  
    & h2:first-child {
       margin-top: 0;
@@ -27,9 +40,9 @@ section {
 
    & div div {
       display: flex;
+      align-items: flex-start;
       gap: 4px;
-      align-items: center;
-      margin: 0 0 1rem 0;
+      margin: 0 0 4px 0;
    }
 }
 
