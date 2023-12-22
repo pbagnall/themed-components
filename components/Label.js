@@ -98,7 +98,7 @@ class Label extends HTMLElement {
 
    click(event) {
       console.log("click");
-      let outboundEvent = new CustomEvent("click", {
+      let outboundEvent = new CustomEvent("dismiss", {
          detail: {},
          composed: true
       });
