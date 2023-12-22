@@ -5,7 +5,6 @@ body {
 
 header {
    box-sizing: border-box;
-   position: fixed;
    top: 0;
    padding: 1em;
    margin: 0;
@@ -25,10 +24,10 @@ header label {
 }
 
 section {
-   margin: 6em 1rem 1rem 1rem;
+   margin: 1rem;
    border: 1px solid black;
    padding: 1rem;
-   width: 31rem;
+   width: 25rem;
  
    & h2:first-child {
       margin-top: 0;

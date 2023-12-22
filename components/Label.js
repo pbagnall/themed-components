@@ -19,10 +19,8 @@ labelStyleTemplate.innerHTML = `
    <style>
       div.label {
          display: flex;
-         align-items: center;
+         align-items: flex-start;
          box-sizing: border-box;
-         -moz-box-sizing: border-box;
-         -webkit-box-sizing: border-box;
 
          background-color: var(--label--background-color);
          color: var(--label--color);
@@ -38,37 +36,31 @@ labelStyleTemplate.innerHTML = `
          padding-top: 0;
          padding-bottom: 0;
          font-size: var(--label--font-size);
-         
-         gap: 0;
+         gap: var(--label--gap);
 
          cursor: pointer;
       }
 
       div.text {
+         text-overflow: ellipsis;
          overflow: hidden;
-         line-height: var(--label--height);
+         line-height: var(--label--height);        
+         white-space: var(--label--white-space, nowrap);
+         max-width: var(--label--max-width);
       }
 
       .icon, .close {
          display: flex;
          align-items: center;
-         align-self: flex-start;
          flex-shrink: 0;
          padding: 0;
          margin: 0;
          height: var(--label--height);
+         width: var(--label--icon-size);
 
          font-family: "Material Symbols Outlined";
          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
          font-size: var(--label--icon-size);
-      }
-
-      .icon {
-         margin-right: var(--label--gap);
-      }
-
-      .close {
-         margin-left: var(--label--gap);
       }
 
       .close:hover {
