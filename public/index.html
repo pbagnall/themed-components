@@ -9,20 +9,38 @@
       <link rel="stylesheet" href="/themes/mainline.css" />
       <link rel="stylesheet" href="/themes/avengers.css" />
       <script src="/scripts/main.js"></script>
-      <script>
-         function switchTheme(radioButton) {
-            console.log(radioButton.id);
-         }
-      </script>
    </head>
    <body>
       <header>
-         <h1>Themed components</h1>
+         <h1>Themed web components</h1>
          <label><input id='mainline' type="radio" name="theme" value="mainline" checked>mainline</label>
          <label><input id='avengers' type="radio" name="theme" value="avengers">avengers</label>
       </header>
-      <main>
-         <h2>Label</h2>
+      <section id="section">
+         <h2><span id='themeHeader'>Mainline</span> Label</h2>
+         <div>
+            <p>
+               <ul-label icon="settings" dismissable>Label</ul-label>
+               <img src="/screenshots/label/mainline/medium.png" height="24" width="105">
+               <img src="/screenshots/label/avengers/medium.png" height="24" width="71" style="display: none;">
+               Height: 24px, Font-size: 16px
+            </p>
+            <p>
+               <img src="/screenshots/label/mainline/medium.png" height="24" width="105">
+               <img src="/screenshots/label/avengers/medium.png" height="24" width="71" style="display: none;">
+            </p>
+            <p style='font-size: 12px;'>
+               <ul-label icon="settings" class="small" dismissable>Label</ul-label>
+               <img src="/screenshots/label/mainline/small.png" height="16" width="85">
+               <img src="/screenshots/label/avengers/small.png" height="19" width="52" style="display: none;">
+               Height: 16px, Font-size: 14px
+            </p>
+            <p>
+               <img src="/screenshots/label/mainline/small.png" height="16" width="85">
+               <img src="/screenshots/label/avengers/small.png" height="19" width="52" style="display: none;">
+            </p>
+         </div>
+
          <div>
             <div>
                <ul-label icon="home">Something</ul-label>
@@ -51,29 +69,62 @@
 
          <div class="small">
             <div>
-               <ul-label icon="home" class="small">Something</ul-label>
-               <ul-label dismissable class="small">Something</ul-label>
-               <ul-label dismissable icon="settings" class="small">A Label with a long name which wraps</ul-label>
+               <ul-label icon="home">Something</ul-label>
+               <ul-label dismissable>Something</ul-label>
+               <ul-label dismissable icon="settings">A Label with a long name which wraps</ul-label>
             </div>
             <div>
-               <ul-label class="warning small" dismissable>Something</ul-label>
-               <ul-label class="danger small" dismissable>Something</ul-label>
-               <ul-label class="success small" dismissable>Something</ul-label>
-               <ul-label class="info small" dismissable>Something</ul-label>
-            </div>
-
-            <div>
-               <ul-label class="warning light small" dismissable>Something</ul-label>
-               <ul-label class="danger light small" dismissable>Something</ul-label>
-               <ul-label class="success light small" dismissable>Something</ul-label>
-               <ul-label class="info light small" dismissable>Something</ul-label>
+               <ul-label class="warning" dismissable>Something</ul-label>
+               <ul-label class="danger" dismissable>Something</ul-label>
+               <ul-label class="success" dismissable>Something</ul-label>
+               <ul-label class="info" dismissable>Something</ul-label>
             </div>
 
             <div>
-               <ul-label class="black small" dismissable>Something</ul-label>
-               <ul-label class="white small" dismissable>Something</ul-label>
+               <ul-label class="warning light" dismissable>Something</ul-label>
+               <ul-label class="danger light" dismissable>Something</ul-label>
+               <ul-label class="success light" dismissable>Something</ul-label>
+               <ul-label class="info light" dismissable>Something</ul-label>
+            </div>
+
+            <div>
+               <ul-label class="black" dismissable>Something</ul-label>
+               <ul-label class="white" dismissable>Something</ul-label>
             </div>
          </div>
-      </main>
+      </section>
    </body>
+   <script defer>
+      function switchTheme(event) {
+         let theme = event.target.id;
+         document.getElementById('section').className = theme;
+
+         let images = document.querySelectorAll('img');
+         for (let image of images) {
+            if (image.src.indexOf(theme)>=0) {
+               image.style.display='block';
+            } else {
+               image.style.display='none';
+            }
+         }
+
+         let themeHeader = document.getElementById('themeHeader');
+         themeCapitalised = theme.substring(0, 1).toUpperCase() + theme.substring(1);
+         themeHeader.innerHTML = themeCapitalised;
+      }
+
+      function dismissLabel(event) {
+         event.target.parentElement.removeChild(event.target);
+      }  
+
+      document.getElementById('mainline').addEventListener('change', (e) => switchTheme(e));
+      document.getElementById('avengers').addEventListener('change', (e) => switchTheme(e));
+
+      let labels = document.querySelectorAll('ul-label');
+      for (let label of labels) {
+         label.addEventListener('dismiss', dismissLabel);
+      }
+
+
+   </script>
 </html>

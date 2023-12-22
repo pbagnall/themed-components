@@ -20,36 +20,48 @@ labelStyleTemplate.innerHTML = `
       div {
          display: inline-flex;
          align-items: flex-start;
+         box-sizing: border-box;
+         -moz-box-sizing: border-box;
+         -webkit-box-sizing: border-box;
+         overflow: hidden;
 
-         background-color: var(--background-color);
-         color: var(--color);
-         border: 1px solid var(--border-color);
+         background-color: var(--label--background-color);
+         color: var(--label--color);
+         border: var(--label--border);
 
-         border-radius: var(--border-radius);
-         padding: var(--padding);
-         font-family: var(--font-family);
-         font-size: var(--font-size);
-         gap: 8px;
+         font-family: var(--label--font-family);
+         font-weight: 400;
+         border-radius: var(--label--border-radius);
+
+         padding: var(--label--padding);
+         font-size: var(--label--font-size);
+         gap: var(--label--gap);
+         height: var(--label--height);
+         align-items: center;
+
+         cursor: pointer;
+      }
+
+      .icon {
+         margin-left: calc(var(--label--gap) * -1);
       }
 
       .icon, .close {
          font-family: "Material Symbols Outlined";
          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-         margin: 0;
-         position: relative;
-         top: 1px;
-
-         font-size: 1em;
-         width: 1em;
+         font-size: var(--label--icon-size);
+         width: var(--label--icon-size);
+         align-self: center;
       }
 
       .close {
          position: relative;
-
-         margin-right: -0.1875em;
-         top: 2px;
       }
-   </style>`;
+
+      .close:hover {
+         font-variation-settings: 'FILL' 1, 'wght' 900, 'GRAD' 0, 'opsz' 24;
+      }
+</style>`;
 
 class Label extends HTMLElement {
    constructor() {
@@ -65,14 +77,27 @@ class Label extends HTMLElement {
 
       let label = ce('div');
 
-      label.appendChild(ce('span','foo','\u200b'));
-      if (iconName) label.appendChild(ce('span','icon', iconName));
+      if (iconName) {
+         label.appendChild(ce('span','foo','\u200b'));
+         label.appendChild(ce('span','icon', iconName));
+      }
       for (let node of this.childNodes) {
          label.appendChild(node);
       }
-      if (dismissable) label.appendChild(ce('span','close', 'close'));
+      this.closeButton = ce('span','close', 'close');
+      this.closeButton.addEventListener('click', (event) => this.click(event));
+      if (dismissable) label.appendChild(this.closeButton);
 
       this.shadowRoot.appendChild(label);
+   }
+
+   click(event) {
+      console.log("click");
+      let outboundEvent = new CustomEvent("click", {
+         detail: {},
+         composed: true
+      });
+      this.dispatchEvent(outboundEvent);
    }
 }
 
