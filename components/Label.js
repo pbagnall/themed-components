@@ -21,6 +21,7 @@ labelStyleTemplate.innerHTML = `
          display: flex;
          align-items: flex-start;
          box-sizing: border-box;
+         width: fit-content;
 
          background-color: var(--label--background-color);
          color: var(--label--color);
@@ -104,6 +105,9 @@ class Label extends HTMLElement {
       });
       this.dispatchEvent(outboundEvent);
    }
+
+   // TODO: add mutation listener so that changes to DOM get reflected, to allow dynamic
+   //       changes to 
 }
 
 window.addEventListener('load', () => {

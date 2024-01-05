@@ -9,42 +9,63 @@
       <link rel="stylesheet" href="/themes/mainline.css" />
       <link rel="stylesheet" href="/themes/avengers.css" />
       <script src="/scripts/main.js"></script>
+      <style id="dynamic-styles">
+         :root {
+            --label--max-width: 10rem;
+            --label--white-space: wrap;
+         }
+      </style>
    </head>
-   <body><header>
+   <body>
+      <header>
          <h1>Themed web components</h1>
          <label><input id='mainline' type="radio" name="theme" value="mainline" checked>mainline</label>
          <label><input id='avengers' type="radio" name="theme" value="avengers">avengers</label>
       </header>
       <section id="section">
-         <h2><span id='themeHeader'>Mainline</span> Label</h2>
+         <header>
+            <h2>Label</h2>
+            <label>
+               Wraps<br>
+               <input type="checkbox" name="wraps" checked>
+            </label>
+            <label>
+               Max width<br>
+               <input type="checkbox" name="hasMaxWidth" checked>
+               <input type="text" name="maxWidth" value="10rem" size="8">
+            </label>
+         </header>
          <div>
-            <p>
-               <ul-label icon="settings" dismissable>Label</ul-label>
-               <img src="/screenshots/label/mainline/medium.png" height="24" width="105">
-               <img src="/screenshots/label/avengers/medium.png" height="24" width="71" style="display: none;">
-               <!-- Height: 24px, Font-size: 16px -->
-            </p>
-            <p>
-               <img src="/screenshots/label/mainline/medium.png" height="24" width="105">
-               <img src="/screenshots/label/avengers/medium.png" height="24" width="71" style="display: none;">
-            </p>
-            <p style='font-size: 12px;'>
-               <ul-label icon="settings" class="small" dismissable>Label</ul-label>
-               <img src="/screenshots/label/mainline/small.png" height="16" width="85">
-               <img src="/screenshots/label/avengers/small.png" height="19" width="52" style="display: none;">
-               <!-- Height: 16px, Font-size: 14px -->
-            </p>
-            <p>
-               <img src="/screenshots/label/mainline/small.png" height="16" width="85">
-               <img src="/screenshots/label/avengers/small.png" height="19" width="52" style="display: none;">
-            </p>
+            <h2>Compare with Figma</h2>
+            <table>
+               <tr><td>Web component</td><td>Figma image</td></tr>
+               <tr>
+                  <td>
+                     <ul-label icon="settings" dismissable>Label</ul-label>
+                  </td>
+                  <td>
+                     <img src="/screenshots/label/mainline/medium.png" height="24" width="105">
+                     <img src="/screenshots/label/avengers/medium.png" height="24" width="71" style="display: none;">   
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <ul-label icon="settings" class="small" dismissable>Label</ul-label>
+                  </td>
+                  <td>
+                     <img src="/screenshots/label/mainline/small.png" height="16" width="85">
+                     <img src="/screenshots/label/avengers/small.png" height="19" width="52" style="display: none;">      
+                  </td>
+               </tr>
+            </table>
          </div>
 
          <div>
+            <h2>Medium</h2>
             <div>
                <ul-label icon="home">Something</ul-label>
                <ul-label dismissable>Something</ul-label>
-               <ul-label dismissable icon="settings">A Label with a long name which wraps</ul-label>
+               <ul-label dismissable icon="settings">A Label with a long name which wraps in some cases but not in others</ul-label>
             </div>
             <div>
                <ul-label class="warning" dismissable>Something</ul-label>
@@ -67,6 +88,7 @@
          </div>
 
          <div class="small">
+            <h2>Small</h2>
             <div>
                <ul-label icon="home">Something</ul-label>
                <ul-label dismissable>Something</ul-label>
@@ -106,24 +128,39 @@
                image.style.display='none';
             }
          }
-
-         let themeHeader = document.getElementById('themeHeader');
-         themeCapitalised = theme.substring(0, 1).toUpperCase() + theme.substring(1);
-         themeHeader.innerHTML = themeCapitalised;
       }
 
       function dismissLabel(event) {
          event.target.parentElement.removeChild(event.target);
       }  
 
+      function updateSettings() {
+         const wrapsEle = document.querySelector("input[name='wraps']");
+         const hasMaxWidthEle = document.querySelector("input[name='hasMaxWidth']");
+         const maxWidthEle = document.querySelector("input[name='maxWidth']");
+
+         const maxWidth = hasMaxWidthEle.checked ? maxWidthEle.value : "none";
+         const wrap = wrapsEle.checked ? 'wrap' : 'nowrap';
+
+         const style = `:root {
+            --label--max-width: ${maxWidth};
+            --label--white-space: ${wrap};
+         }`;
+         
+         document.querySelector('#dynamic-styles').textContent = style;
+      }
+
       document.getElementById('mainline').addEventListener('change', (e) => switchTheme(e));
       document.getElementById('avengers').addEventListener('change', (e) => switchTheme(e));
+
+      document.querySelector("input[name='wraps']").addEventListener('change', (e) => updateSettings());
+      document.querySelector("input[name='maxWidth']").addEventListener('change', (e) => updateSettings());
+      document.querySelector("input[name='hasMaxWidth']").addEventListener('change', (e) => updateSettings());
+      updateSettings();
 
       let labels = document.querySelectorAll('ul-label');
       for (let label of labels) {
          label.addEventListener('dismiss', dismissLabel);
       }
-
-
    </script>
 </html>

@@ -26,22 +26,44 @@ header label {
 section {
    margin: 1rem;
    border: 1px solid black;
-   padding: 1rem;
-   width: 25rem;
+   width: 33rem;
  
+   & header {
+      padding: 1rem;
+      display: block;
+      margin-bottom: 1rem;
+   }
+
+   & label {
+      display: inline-block;
+      margin-right: 2rem;
+   }
+
    & h2:first-child {
       margin-top: 0;
    }
 
-   & div {
-      margin: 0 0 6rem 0;
+   & > div {
+      margin: 0;
+      padding: 0 1rem 6rem 1rem;
    }
 
-   & div div {
+   & > div:last-child {
+      margin: 0;
+      padding: 0 1rem 1rem 1rem;
+   }
+
+   & > div > div {
       display: flex;
+      flex-wrap: wrap;
       align-items: flex-start;
       gap: 4px;
       margin: 0 0 4px 0;
+      padding: 0;
+   }
+
+   table {
+      gap: 2rem;
    }
 }
 
