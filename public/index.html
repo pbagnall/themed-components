@@ -22,7 +22,7 @@
          <label><input id='mainline' type="radio" name="theme" value="mainline" checked>mainline</label>
          <label><input id='avengers' type="radio" name="theme" value="avengers">avengers</label>
       </header>
-      <section id="section">
+      <section>
          <header>
             <h2>Label</h2>
             <label>
@@ -35,6 +35,27 @@
                <input type="text" name="maxWidth" value="10rem" size="8">
             </label>
          </header>
+
+         <div>
+            <h2>Example</h2>
+            <label>
+               Icon<br>
+               <input type="checkbox" name="hasIcon" checked>
+               <input type="text" name="icon" value="settings" size="10">
+            </label>
+            <label>
+               Text<br>
+               <input type="text" name="text" value="Label">
+            </label>
+            <label>
+               Dismissable<br>
+               <input type="checkbox" name="dismissable" checked>
+            </label>
+            <p>
+               <ul-label id="example">Label</ul-label>
+            </p>
+         </div>
+
          <div>
             <h2>Compare with Figma</h2>
             <table>
@@ -118,7 +139,7 @@
    <script defer>
       function switchTheme(event) {
          let theme = event.target.id;
-         document.getElementById('section').className = theme;
+         document.getElementsByTagName('section')[0].className = theme;
 
          let images = document.querySelectorAll('img');
          for (let image of images) {
@@ -131,10 +152,13 @@
       }
 
       function dismissLabel(event) {
-         event.target.parentElement.removeChild(event.target);
+         let after = event.target.nextSibling;
+         let parent = event.target.parentElement;
+         let dismissed = parent.removeChild(event.target);
+         setTimeout(() => { parent.insertBefore(dismissed, after) }, 1500);
       }  
 
-      function updateSettings() {
+      function updateCSS() {
          const wrapsEle = document.querySelector("input[name='wraps']");
          const hasMaxWidthEle = document.querySelector("input[name='hasMaxWidth']");
          const maxWidthEle = document.querySelector("input[name='maxWidth']");
@@ -150,13 +174,38 @@
          document.querySelector('#dynamic-styles').textContent = style;
       }
 
+      function updateExample() {
+         const example = document.getElementById('example');
+         if (!example) return;
+
+         if (document.querySelector("input[name='hasIcon']").checked) {
+            example.setAttribute('icon', document.querySelector("input[name='icon']").value);
+         } else {
+            example.removeAttribute('icon');
+         }
+
+         if (document.querySelector("input[name='dismissable']").checked) {
+            example.setAttribute('dismissable', '');
+         } else {
+            example.removeAttribute('dismissable');
+         }
+
+         example.textContent = document.querySelector("input[name='text']").value;
+      } 
+
       document.getElementById('mainline').addEventListener('change', (e) => switchTheme(e));
       document.getElementById('avengers').addEventListener('change', (e) => switchTheme(e));
 
-      document.querySelector("input[name='wraps']").addEventListener('change', (e) => updateSettings());
-      document.querySelector("input[name='maxWidth']").addEventListener('change', (e) => updateSettings());
-      document.querySelector("input[name='hasMaxWidth']").addEventListener('change', (e) => updateSettings());
-      updateSettings();
+      document.querySelector("input[name='wraps']").addEventListener('change', (e) => updateCSS());
+      document.querySelector("input[name='maxWidth']").addEventListener('change', (e) => updateCSS());
+      document.querySelector("input[name='hasMaxWidth']").addEventListener('change', (e) => updateCSS());
+      updateCSS();
+
+      document.querySelector("input[name='hasIcon']").addEventListener('change', (e) => updateExample());
+      document.querySelector("input[name='icon']").addEventListener('keyup', (e) => updateExample());
+      document.querySelector("input[name='text']").addEventListener('keyup', (e) => updateExample());
+      document.querySelector("input[name='dismissable']").addEventListener('change', (e) => updateExample());
+      updateExample();
 
       let labels = document.querySelectorAll('ul-label');
       for (let label of labels) {

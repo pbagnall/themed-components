@@ -58,6 +58,7 @@ labelStyleTemplate.innerHTML = `
          margin: 0;
          height: var(--label--height);
          width: var(--label--icon-size);
+         overflow: hidden;
 
          font-family: "Material Symbols Outlined";
          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -77,11 +78,22 @@ class Label extends HTMLElement {
    }
 
    connectedCallback() {
+      this.populate();
+
+      const mutationHandler = (mutationList, observer) => { this.populate(); };
+      const observer = new MutationObserver(mutationHandler);
+      observer.observe(this, { attributes: true, childList: true, subtree: true, characterData: true });
+   }
+
+   populate() {
       let dismissable = this.hasAttribute('dismissable');
       let iconName = this.getAttribute('icon');
-      let size = this.getAttribute('size');
 
-      let label = ce('div','label');
+      let label = this.shadowRoot.querySelector('div.label');
+      label = label ? label : ce('div','label');
+      while (label.hasChildNodes()) {
+         label.removeChild(label.firstChild);
+      }
 
       // icon
       if (iconName) label.appendChild(ce('div','icon', iconName));
@@ -90,24 +102,22 @@ class Label extends HTMLElement {
       label.appendChild(ce('div','text',this.textContent));
 
       // close button
-      this.closeButton = ce('div','close', 'close');
-      this.closeButton.addEventListener('click', (event) => this.click(event));
-      if (dismissable) label.appendChild(this.closeButton);
+      if (dismissable) {
+         let closeButton = ce('div','close', 'close');
+         closeButton.addEventListener('click', (event) => this.click(event));
+         label.appendChild(closeButton);
+      }
 
       this.shadowRoot.appendChild(label);
    }
 
    click(event) {
-      console.log("click");
       let outboundEvent = new CustomEvent("dismiss", {
          detail: {},
          composed: true
       });
       this.dispatchEvent(outboundEvent);
    }
-
-   // TODO: add mutation listener so that changes to DOM get reflected, to allow dynamic
-   //       changes to 
 }
 
 window.addEventListener('load', () => {
