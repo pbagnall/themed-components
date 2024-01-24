@@ -1,7 +1,7 @@
 // Label API
 // <ul-label>Label</ul-label>
 //
-// Dismisssable: adding this attribute adds the dismiss control to the label, which fire an event when clicked.
+// dismisssable: adding this attribute adds the dismiss control to the label, which fire an event when clicked.
 // The value of this attribute is ignored, it's simple a flag.
 // <ul-label dismissable>Label</ul-label>
 //

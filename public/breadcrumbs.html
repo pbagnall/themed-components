@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="/styles/styles.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <link rel="stylesheet" href="/themes/mainline.css" />
+      <link rel="stylesheet" href="/themes/avengers.css" />
+      <script src="/scripts/main.js"></script>
+   </head>
+   <body>
+      <header>
+         <h1><a href='/'>Themed web components</a></h1>
+         <label><input id='mainline' type="radio" name="theme" value="mainline" checked>mainline</label>
+         <label><input id='avengers' type="radio" name="theme" value="avengers">avengers</label>
+      </header>
+      <ul-resizable axes='hori'>
+         <header>
+            <h2>Breadcrumbs</h2>
+         </header>
+
+         <div>
+            <h2>Example</h2>
+               <ul-breadcrumbs id="example">
+                  <ul-breadcrumb>Electrical</ul-breadcrumb>
+                  <ul-breadcrumb>Electrical Health & Diagnostics</ul-breadcrumb>
+                  <ul-breadcrumb>Blood Pressure Monitors</ul-breadcrumb>
+                  <ul-breadcrumb>CVS Blood Pressure Monitor 400</ul-breadcrumb>
+               </ul-breadcrumbs>
+         </div>
+      </ul-resizable>
+   </body>
+   <script defer>
+      function switchTheme(event) {
+         let theme = event.target.id;
+         console.log(document.getElementsByTagName('ul-resizable'));
+         document.getElementsByTagName('ul-resizable')[0].className = theme;
+      }
+
+      document.getElementById('mainline').addEventListener('change', (e) => switchTheme(e));
+      document.getElementById('avengers').addEventListener('change', (e) => switchTheme(e));
+   </script>
+</html>

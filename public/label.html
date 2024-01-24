@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="/styles/styles.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <link rel="stylesheet" href="/themes/label/mainline.css" />
+      <link rel="stylesheet" href="/themes/label/avengers.css" />
+      <script src="/scripts/main.js"></script>
+      <style id="dynamic-styles">
+         :root {
+            --label--max-width: 10rem;
+            --label--white-space: wrap;
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <h1><a href='/'>Themed web components</a></h1>
+         <label><input id='mainline' type="radio" name="theme" value="mainline" checked>mainline</label>
+         <label><input id='avengers' type="radio" name="theme" value="avengers">avengers</label>
+      </header>
+      <section>
+         <header>
+            <h2>Label</h2>
+            <label>
+               Wraps<br>
+               <input type="checkbox" name="wraps" checked>
+            </label>
+            <label>
+               Max width<br>
+               <input type="checkbox" name="hasMaxWidth" checked>
+               <input type="text" name="maxWidth" value="10rem" size="8">
+            </label>
+         </header>
+
+         <div>
+            <h2>Example</h2>
+            <label>
+               Icon<br>
+               <input type="checkbox" name="hasIcon" checked>
+               <input type="text" name="icon" value="settings" size="10">
+            </label>
+            <label>
+               Text<br>
+               <input type="text" name="text" value="Label">
+            </label>
+            <label>
+               Dismissable<br>
+               <input type="checkbox" name="dismissable" checked>
+            </label>
+            <p>
+               <ul-label id="example">Label</ul-label>
+            </p>
+         </div>
+
+         <div>
+            <h2>Compare with Figma</h2>
+            <table>
+               <tr><td>Web component</td><td>Figma image</td></tr>
+               <tr>
+                  <td>
+                     <ul-label icon="settings" dismissable>Label</ul-label>
+                  </td>
+                  <td>
+                     <img src="/screenshots/label/mainline/medium.png" height="24" width="105">
+                     <img src="/screenshots/label/avengers/medium.png" height="24" width="71" style="display: none;">   
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <ul-label icon="settings" class="small" dismissable>Label</ul-label>
+                  </td>
+                  <td>
+                     <img src="/screenshots/label/mainline/small.png" height="16" width="85">
+                     <img src="/screenshots/label/avengers/small.png" height="19" width="52" style="display: none;">      
+                  </td>
+               </tr>
+            </table>
+         </div>
+
+         <div>
+            <h2>Medium</h2>
+            <div>
+               <ul-label icon="home">Something</ul-label>
+               <ul-label dismissable>Something</ul-label>
+               <ul-label dismissable icon="settings">A Label with a long name which wraps in some cases but not in others</ul-label>
+            </div>
+            <div>
+               <ul-label class="warning" dismissable>Something</ul-label>
+               <ul-label class="danger" dismissable>Something</ul-label>
+               <ul-label class="success" dismissable>Something</ul-label>
+               <ul-label class="info" dismissable>Something</ul-label>
+            </div>
+
+            <div>
+               <ul-label class="warning light" dismissable>Something</ul-label>
+               <ul-label class="danger light" dismissable>Something</ul-label>
+               <ul-label class="success light" dismissable>Something</ul-label>
+               <ul-label class="info light" dismissable>Something</ul-label>
+            </div>
+
+            <div>
+               <ul-label class="black" dismissable>Something</ul-label>
+               <ul-label class="white" dismissable>Something</ul-label>
+            </div>
+         </div>
+
+         <div class="small">
+            <h2>Small</h2>
+            <div>
+               <ul-label icon="home">Something</ul-label>
+               <ul-label dismissable>Something</ul-label>
+               <ul-label dismissable icon="settings">A Label with a long name which wraps</ul-label>
+            </div>
+            <div>
+               <ul-label class="warning" dismissable>Something</ul-label>
+               <ul-label class="danger" dismissable>Something</ul-label>
+               <ul-label class="success" dismissable>Something</ul-label>
+               <ul-label class="info" dismissable>Something</ul-label>
+            </div>
+
+            <div>
+               <ul-label class="warning light" dismissable>Something</ul-label>
+               <ul-label class="danger light" dismissable>Something</ul-label>
+               <ul-label class="success light" dismissable>Something</ul-label>
+               <ul-label class="info light" dismissable>Something</ul-label>
+            </div>
+
+            <div>
+               <ul-label class="black" dismissable>Something</ul-label>
+               <ul-label class="white" dismissable>Something</ul-label>
+            </div>
+         </div>
+      </section>
+   </body>
+   <script defer>
+      function switchTheme(event) {
+         let theme = event.target.id;
+         document.getElementsByTagName('section')[0].className = theme;
+
+         let images = document.querySelectorAll('img');
+         for (let image of images) {
+            if (image.src.indexOf(theme)>=0) {
+               image.style.display='block';
+            } else {
+               image.style.display='none';
+            }
+         }
+      }
+
+      function dismissLabel(event) {
+         let after = event.target.nextSibling;
+         let parent = event.target.parentElement;
+         let dismissed = parent.removeChild(event.target);
+         setTimeout(() => { parent.insertBefore(dismissed, after) }, 1500);
+      }  
+
+      function updateCSS() {
+         const wrapsEle = document.querySelector("input[name='wraps']");
+         const hasMaxWidthEle = document.querySelector("input[name='hasMaxWidth']");
+         const maxWidthEle = document.querySelector("input[name='maxWidth']");
+
+         const maxWidth = hasMaxWidthEle.checked ? maxWidthEle.value : "none";
+         const wrap = wrapsEle.checked ? 'wrap' : 'nowrap';
+
+         const style = `:root {
+            --label--max-width: ${maxWidth};
+            --label--white-space: ${wrap};
+         }`;
+         
+         document.querySelector('#dynamic-styles').textContent = style;
+      }
+
+      function updateExample() {
+         const example = document.getElementById('example');
+         if (!example) return;
+
+         if (document.querySelector("input[name='hasIcon']").checked) {
+            example.setAttribute('icon', document.querySelector("input[name='icon']").value);
+         } else {
+            example.removeAttribute('icon');
+         }
+
+         if (document.querySelector("input[name='dismissable']").checked) {
+            example.setAttribute('dismissable', '');
+         } else {
+            example.removeAttribute('dismissable');
+         }
+
+         example.textContent = document.querySelector("input[name='text']").value;
+      } 
+
+      document.getElementById('mainline').addEventListener('change', (e) => switchTheme(e));
+      document.getElementById('avengers').addEventListener('change', (e) => switchTheme(e));
+
+      document.querySelector("input[name='wraps']").addEventListener('change', (e) => updateCSS());
+      document.querySelector("input[name='maxWidth']").addEventListener('change', (e) => updateCSS());
+      document.querySelector("input[name='hasMaxWidth']").addEventListener('change', (e) => updateCSS());
+      updateCSS();
+
+      document.querySelector("input[name='hasIcon']").addEventListener('change', (e) => updateExample());
+      document.querySelector("input[name='icon']").addEventListener('keyup', (e) => updateExample());
+      document.querySelector("input[name='text']").addEventListener('keyup', (e) => updateExample());
+      document.querySelector("input[name='dismissable']").addEventListener('change', (e) => updateExample());
+      updateExample();
+
+      let labels = document.querySelectorAll('ul-label');
+      for (let label of labels) {
+         label.addEventListener('dismiss', dismissLabel);
+      }
+   </script>
+</html>

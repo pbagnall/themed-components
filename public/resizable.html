@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="/styles/styles.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <link rel="stylesheet" href="/themes/mainline.css" />
+      <link rel="stylesheet" href="/themes/avengers.css" />
+      <script src="/scripts/main.js"></script>
+   </head>
+   <body>
+      <header>
+         <h1><a href='/'>Themed web components</a></h1>
+         <label><input id='mainline' type="radio" name="theme" value="mainline" checked>mainline</label>
+         <label><input id='avengers' type="radio" name="theme" value="avengers">avengers</label>
+      </header>
+      <ul-resizable axes='both' id='example'>
+         <header>
+            <h2>Resizable</h2>
+               Resizing axes<br>
+               <div style="display: flex; flex-wrap: wrap;">
+               <label><input type="radio" name='axes' value="hori">Horizontal</label>
+               <label><input type="radio" name='axes' value="vert">Vertical</label>
+               <label><input type="radio" name='axes' value="both" checked>Both</label>
+               <label><input type="radio" name='axes' value="none">None</label>
+               </div>
+         </header>
+
+         <div>
+            <h2>Example</h2>
+               <ul-breadrumbs id="example">
+                  <li>Electrical</li>
+                  <li>Electrical Health & Diagnostics</li>
+                  <li>Blood Pressure Monitors</li>
+                  <li>CVS Blood Pressure Monitor 400</li>
+               </ul-label>
+         </div>
+      </ul-resizable>
+   </body>
+   <script defer>
+      function switchTheme(event) {
+         let theme = event.target.id;
+         document.getElementsByTagName('section')[0].className = theme;
+
+         let images = document.querySelectorAll('img');
+         for (let image of images) {
+            if (image.src.indexOf(theme)>=0) {
+               image.style.display='block';
+            } else {
+               image.style.display='none';
+            }
+         }
+      }
+
+      function updateExample(event) {
+         const example = document.getElementById('example');
+         if (!example) return;
+
+         console.log(event.target.value);
+         if (!event.target.checked) return;
+         const value = event.target.value;
+
+         example.setAttribute('axes', value);
+      } 
+
+      console.log(document.querySelector("ul-resizable header"));
+      document.querySelector("ul-resizable header").addEventListener('change', (e) => updateExample(e));
+      // document.querySelector("input[value='y']").addEventListener('change', (e) => updateExample(e));
+      // document.querySelector("input[value='both']").addEventListener('change', (e) => updateExample(e));
+      // document.querySelector("input[value='none']").addEventListener('change', (e) => updateExample(e));
+   </script>
+</html>

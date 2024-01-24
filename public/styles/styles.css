@@ -13,21 +13,28 @@ header {
    gap: 2rem;
    background: #eeeeee;
    width: 100%;
+
+   & h1 {
+      flex-shrink: 1;
+   }
+   
+   & label {
+      flex-shrink: 0;
+   }
 }
 
-header h1 {
-   flex-shrink: 1;
-}
-
-header label {
-   flex-shrink: 0;
+ul-resizable {
+   --margin: 1rem;
+   --width: 33rem;
 }
 
 section {
    margin: 1rem;
    border: 1px solid black;
    width: 33rem;
- 
+}
+
+section, ul-resizable {
    & header {
       padding: 1rem;
       display: block;
