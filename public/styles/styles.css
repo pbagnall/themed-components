@@ -24,43 +24,52 @@ header {
 }
 
 ul-resizable {
-   --margin: 1rem;
-   --width: 33rem;
+   --margin: 0 0 1rem 0;
+   --width: 34rem;
 }
 
-section {
+main {
    margin: 1rem;
-   border: 1px solid black;
-   width: 33rem;
 }
 
-section, ul-resizable {
+ul-resizable {
    & header {
       padding: 1rem;
       display: block;
       margin-bottom: 1rem;
+
+      & h2 {
+         margin-bottom: 0;
+      }
    }
+
 
    & label {
       display: inline-block;
       margin-right: 2rem;
+      margin-top: 1rem;
    }
 
+   & label > label {
+      margin-top: 0;
+      margin-right: 0.75rem;
+   }
+   
    & h2:first-child {
       margin-top: 0;
    }
-
-   & > div {
+   
+   & > section {
       margin: 0;
-      padding: 0 1rem 6rem 1rem;
+      padding: 1rem 1rem 4rem 1rem;
    }
-
-   & > div:last-child {
+   
+   & > section:last-child {
       margin: 0;
-      padding: 0 1rem 1rem 1rem;
+      padding-bottom: 1rem;
    }
-
-   & > div > div {
+   
+   & > section > div {
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
@@ -68,9 +77,12 @@ section, ul-resizable {
       margin: 0 0 4px 0;
       padding: 0;
    }
-
+   
    table {
       gap: 2rem;
+      & td, th {
+         padding-right: 3rem;
+      }
    }
 }
 

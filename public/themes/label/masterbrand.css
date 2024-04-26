@@ -12,8 +12,12 @@
    --label--gap: 0.5rem;
    --label--icon-size: 1rem;
    --label--height: 1.5rem;
-   /* --label--max-width: 10rem; */
-   /* --label--white-space: wrap; */
+
+   /*
+   Other possible settings
+   --label--max-width: 10rem;
+   --label--white-space: wrap;
+   */
 
    .small {
       --label--font-size: 0.875rem;

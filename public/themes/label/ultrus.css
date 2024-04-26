@@ -1,4 +1,4 @@
-:root .avengers {
+:root .ultrus {
    --label--background-color: #ebebeb;
    --label--color: #000000;
    --label--border: none;
@@ -12,6 +12,12 @@
    --label--gap: 0.5rem;
    --label--icon-size: 0.75rem;
    --label--height: 1.5rem;
+
+   /*
+   Other possible settings
+   --label--max-width: 10rem;
+   --label--white-space: wrap;
+   */
 
    .small {
       --label--font-size: 0.6875rem;
